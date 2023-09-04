@@ -10,14 +10,14 @@
 local Package = script.Parent.Parent
 local PubTypes = require(Package.PubTypes)
 
-type Set<T> = {[T]: any}
+type Set<T> = { [T]: any }
 type Descendant = (PubTypes.Dependent & PubTypes.Dependency) | PubTypes.Dependent
 
 -- Credit: https://blog.elttob.uk/2022/11/07/sets-efficient-topological-search.html
 local function updateAll(root: PubTypes.Dependency)
-	local counters: {[Descendant]: number} = {}
-	local flags: {[Descendant]: boolean} = {}
-	local queue: {Descendant} = {}
+	local counters: { [Descendant]: number } = {}
+	local flags: { [Descendant]: boolean } = {}
+	local queue: { Descendant } = {}
 	local queueSize = 0
 	local queuePos = 1
 

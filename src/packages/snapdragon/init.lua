@@ -11,9 +11,9 @@ end
 
 local export
 export = {
-	createDragController = createDragController, 
+	createDragController = createDragController,
 	SnapdragonController = SnapdragonController,
-	createRef = createRef
+	createRef = createRef,
 }
 -- roblox-ts `default` support
 export.default = export

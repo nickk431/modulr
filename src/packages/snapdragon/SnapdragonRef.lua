@@ -1,11 +1,11 @@
-local refs = setmetatable({}, {__mode = "k"})
+local refs = setmetatable({}, { __mode = "k" })
 
 local SnapdragonRef = {}
 SnapdragonRef.__index = SnapdragonRef
 
 function SnapdragonRef.new(current)
 	local ref = setmetatable({
-		current = current
+		current = current,
 	}, SnapdragonRef)
 	refs[ref] = ref
 	return ref

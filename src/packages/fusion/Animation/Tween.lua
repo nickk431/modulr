@@ -7,18 +7,18 @@
 
 local Package = script.Parent.Parent
 local PubTypes = require(Package.PubTypes)
-local Types = require(Package.Types)
 local TweenScheduler = require(Package.Animation.TweenScheduler)
-local useDependency = require(Package.Dependencies.useDependency)
+local Types = require(Package.Types)
 local initDependency = require(Package.Dependencies.initDependency)
 local logError = require(Package.Logging.logError)
 local logErrorNonFatal = require(Package.Logging.logErrorNonFatal)
+local useDependency = require(Package.Dependencies.useDependency)
 local xtypeof = require(Package.Utility.xtypeof)
 
 local class = {}
 
-local CLASS_METATABLE = {__index = class}
-local WEAK_KEYS_METATABLE = {__mode = "k"}
+local CLASS_METATABLE = { __index = class }
+local WEAK_KEYS_METATABLE = { __mode = "k" }
 
 --[[
 	Returns the current value of this Tween object.
@@ -85,7 +85,7 @@ local function Tween<T>(
 		tweenInfo = TweenInfo.new()
 	end
 
-	local dependencySet = {[goalState] = true}
+	local dependencySet = { [goalState] = true }
 	local tweenInfoIsState = xtypeof(tweenInfo) == "State"
 
 	if tweenInfoIsState then
@@ -122,7 +122,7 @@ local function Tween<T>(
 		_currentTweenInfo = tweenInfo,
 		_currentTweenDuration = 0,
 		_currentTweenStartTime = 0,
-		_currentlyAnimating = false
+		_currentlyAnimating = false,
 	}, CLASS_METATABLE)
 
 	initDependency(self)

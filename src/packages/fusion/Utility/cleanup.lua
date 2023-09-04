@@ -25,7 +25,6 @@ local function cleanupOne(task: any)
 	-- case 3: callback
 	elseif taskType == "function" then
 		task()
-
 	elseif taskType == "table" then
 		-- case 4: destroy() function
 		if typeof(task.destroy) == "function" then

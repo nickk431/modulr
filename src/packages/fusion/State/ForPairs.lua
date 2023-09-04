@@ -15,14 +15,14 @@ local Package = script.Parent.Parent
 local PubTypes = require(Package.PubTypes)
 local Types = require(Package.Types)
 local captureDependencies = require(Package.Dependencies.captureDependencies)
-local initDependency = require(Package.Dependencies.initDependency)
-local useDependency = require(Package.Dependencies.useDependency)
-local parseError = require(Package.Logging.parseError)
-local logErrorNonFatal = require(Package.Logging.logErrorNonFatal)
-local logError = require(Package.Logging.logError)
-local logWarn = require(Package.Logging.logWarn)
 local cleanup = require(Package.Utility.cleanup)
+local initDependency = require(Package.Dependencies.initDependency)
+local logError = require(Package.Logging.logError)
+local logErrorNonFatal = require(Package.Logging.logErrorNonFatal)
+local logWarn = require(Package.Logging.logWarn)
 local needsDestruction = require(Package.Utility.needsDestruction)
+local parseError = require(Package.Logging.parseError)
+local useDependency = require(Package.Dependencies.useDependency)
 
 local class = {}
 
@@ -68,7 +68,6 @@ function class:update(): boolean
 
 	local didChange = false
 
-
 	-- clean out main dependency set
 	for dependency in pairs(self.dependencySet) do
 		dependency.dependentSet[self] = nil
@@ -105,7 +104,6 @@ function class:update(): boolean
 			self._keyData[newInKey] = keyData
 		end
 
-
 		-- check if the pair is new or changed
 		local shouldRecalculate = oldInputTable[newInKey] ~= newInValue
 
@@ -119,21 +117,19 @@ function class:update(): boolean
 			end
 		end
 
-
 		-- recalculate the output pair if necessary
 		if shouldRecalculate then
 			keyData.oldDependencySet, keyData.dependencySet = keyData.dependencySet, keyData.oldDependencySet
 			table.clear(keyData.dependencySet)
 
-			local processOK, newOutKey, newOutValue, newMetaValue = captureDependencies(
-				keyData.dependencySet,
-				self._processor,
-				newInKey,
-				newInValue
-			)
+			local processOK, newOutKey, newOutValue, newMetaValue =
+				captureDependencies(keyData.dependencySet, self._processor, newInKey, newInValue)
 
 			if processOK then
-				if self._destructor == nil and (needsDestruction(newOutKey) or needsDestruction(newOutValue) or needsDestruction(newMetaValue)) then
+				if
+					self._destructor == nil
+					and (needsDestruction(newOutKey) or needsDestruction(newOutValue) or needsDestruction(newMetaValue))
+				then
 					logWarn("destructorNeededForPairs")
 				end
 
@@ -169,7 +165,8 @@ function class:update(): boolean
 				if oldOutValue ~= newOutValue then
 					local oldMetaValue = meta[newOutKey]
 					if oldOutValue ~= nil then
-						local destructOK, err = xpcall(self._destructor or cleanup, parseError, newOutKey, oldOutValue, oldMetaValue)
+						local destructOK, err =
+							xpcall(self._destructor or cleanup, parseError, newOutKey, oldOutValue, oldMetaValue)
 						if not destructOK then
 							logErrorNonFatal("forPairsDestructorError", err)
 						end
@@ -227,7 +224,6 @@ function class:update(): boolean
 			newOutputTable[storedOutKey] = oldOutputTable[storedOutKey]
 		end
 
-
 		-- save dependency values and add to main dependency set
 		for dependency in pairs(keyData.dependencySet) do
 			keyData.dependencyValues[dependency] = dependency:get(false)
@@ -244,7 +240,8 @@ function class:update(): boolean
 			-- clean up the old output pair
 			local oldMetaValue = meta[oldOutKey]
 			if oldOutValue ~= nil then
-				local destructOK, err = xpcall(self._destructor or cleanup, parseError, oldOutKey, oldOutValue, oldMetaValue)
+				local destructOK, err =
+					xpcall(self._destructor or cleanup, parseError, oldOutKey, oldOutValue, oldMetaValue)
 				if not destructOK then
 					logErrorNonFatal("forPairsDestructorError", err)
 				end
@@ -275,7 +272,6 @@ local function ForPairs<KI, VI, KO, VO, M>(
 	processor: (KI, VI) -> (KO, VO, M?),
 	destructor: (KO, VO, M?) -> ()?
 ): Types.ForPairs<KI, VI, KO, VO, M>
-
 	local inputIsState = inputTable.type == "State" and typeof(inputTable.get) == "function"
 
 	local self = setmetatable({

@@ -3,7 +3,7 @@ Signal.__index = Signal
 
 function Signal.new()
 	return setmetatable({
-		Bindable = Instance.new("BindableEvent");
+		Bindable = Instance.new("BindableEvent"),
 	}, Signal)
 end
 

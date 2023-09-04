@@ -23,7 +23,10 @@ local function logErrorNonFatal(messageID: string, errObj: Types.Error?, ...)
 		errorString = string.format("[Fusion] " .. formatString .. "\n(ID: " .. messageID .. ")", ...)
 	else
 		formatString = formatString:gsub("ERROR_MESSAGE", errObj.message)
-		errorString = string.format("[Fusion] " .. formatString .. "\n(ID: " .. messageID .. ")\n---- Stack trace ----\n" .. errObj.trace, ...)
+		errorString = string.format(
+			"[Fusion] " .. formatString .. "\n(ID: " .. messageID .. ")\n---- Stack trace ----\n" .. errObj.trace,
+			...
+		)
 	end
 
 	task.spawn(function(...)

@@ -61,10 +61,10 @@ end
 function Maid:GiveTask(task)
 	assert(task, "Task cannot be false or nil")
 
-	local taskId = #self._tasks+1
+	local taskId = #self._tasks + 1
 	self[taskId] = task
 
-	if type(task) == "table" and (not task.Destroy) then
+	if type(task) == "table" and not task.Destroy then
 		warn("[Maid.GiveTask] - Gave table task without .Destroy\n\n" .. debug.traceback())
 	end
 

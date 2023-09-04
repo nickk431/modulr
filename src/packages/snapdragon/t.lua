@@ -699,9 +699,9 @@ end
 	@returns A function that will return true iff the condition is passed
 **--]]
 function t.tuple(...)
-	local checks = {...}
+	local checks = { ... }
 	return function(...)
-		local args = {...}
+		local args = { ... }
 		for i, check in ipairs(checks) do
 			local success, errMsg = check(args[i])
 			if success == false then
@@ -890,7 +890,7 @@ do
 		@returns A function that will return true iff the condition is passed
 	**--]]
 	function t.union(...)
-		local checks = {...}
+		local checks = { ... }
 		assert(callbackArray(checks))
 
 		return function(value)
@@ -917,7 +917,7 @@ do
 		@returns A function that will return true iff the condition is passed
 	**--]]
 	function t.intersection(...)
-		local checks = {...}
+		local checks = { ... }
 		assert(callbackArray(checks))
 
 		return function(value)

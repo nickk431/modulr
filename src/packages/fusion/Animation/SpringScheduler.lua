@@ -12,7 +12,7 @@ local packType = require(Package.Animation.packType)
 local springCoefficients = require(Package.Animation.springCoefficients)
 local updateAll = require(Package.Dependencies.updateAll)
 
-type Set<T> = {[T]: any}
+type Set<T> = { [T]: any }
 type Spring = Types.Spring<any>
 
 local SpringScheduler = {}
@@ -40,13 +40,13 @@ function SpringScheduler.remove(spring: Spring)
 	activeSprings[spring] = nil
 end
 
-
 local function updateAllSprings()
 	local springsToSleep: Set<Spring> = {}
 	lastUpdateTime = os.clock()
 
 	for spring in pairs(activeSprings) do
-		local posPos, posVel, velPos, velVel = springCoefficients(lastUpdateTime - spring._lastSchedule, spring._currentDamping, spring._currentSpeed)
+		local posPos, posVel, velPos, velVel =
+			springCoefficients(lastUpdateTime - spring._lastSchedule, spring._currentDamping, spring._currentSpeed)
 
 		local positions = spring._springPositions
 		local velocities = spring._springVelocities
@@ -83,10 +83,6 @@ local function updateAllSprings()
 	end
 end
 
-RunService:BindToRenderStep(
-	"__FusionSpringScheduler",
-	Enum.RenderPriority.First.Value,
-	updateAllSprings
-)
+RunService:BindToRenderStep("__FusionSpringScheduler", Enum.RenderPriority.First.Value, updateAllSprings)
 
 return SpringScheduler

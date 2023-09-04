@@ -15,14 +15,14 @@ local Package = script.Parent.Parent
 local PubTypes = require(Package.PubTypes)
 local Types = require(Package.Types)
 local captureDependencies = require(Package.Dependencies.captureDependencies)
-local initDependency = require(Package.Dependencies.initDependency)
-local useDependency = require(Package.Dependencies.useDependency)
-local parseError = require(Package.Logging.parseError)
-local logErrorNonFatal = require(Package.Logging.logErrorNonFatal)
-local logError = require(Package.Logging.logError)
-local logWarn = require(Package.Logging.logWarn)
 local cleanup = require(Package.Utility.cleanup)
+local initDependency = require(Package.Dependencies.initDependency)
+local logError = require(Package.Logging.logError)
+local logErrorNonFatal = require(Package.Logging.logErrorNonFatal)
+local logWarn = require(Package.Logging.logWarn)
 local needsDestruction = require(Package.Utility.needsDestruction)
+local parseError = require(Package.Logging.parseError)
+local useDependency = require(Package.Dependencies.useDependency)
 
 local class = {}
 
@@ -39,7 +39,6 @@ function class:get(asDependency: boolean?): any
 	end
 	return self._outputTable
 end
-
 
 --[[
 	Called when the original table is changed.
@@ -71,7 +70,6 @@ function class:update(): boolean
 
 	local didChange = false
 
-
 	-- clean out main dependency set
 	for dependency in pairs(self.dependencySet) do
 		dependency.dependentSet[self] = nil
@@ -85,7 +83,6 @@ function class:update(): boolean
 		self._inputTable.dependentSet[self] = true
 		self.dependencySet[self._inputTable] = true
 	end
-
 
 	-- STEP 1: find keys that changed or were not previously present
 	for newInKey, value in pairs(newInputTable) do
@@ -114,17 +111,13 @@ function class:update(): boolean
 			end
 		end
 
-
 		-- recalculate the output key if necessary
 		if shouldRecalculate then
 			keyData.oldDependencySet, keyData.dependencySet = keyData.dependencySet, keyData.oldDependencySet
 			table.clear(keyData.dependencySet)
 
-			local processOK, newOutKey, newMetaValue = captureDependencies(
-				keyData.dependencySet,
-				self._processor,
-				newInKey
-			)
+			local processOK, newOutKey, newMetaValue =
+				captureDependencies(keyData.dependencySet, self._processor, newInKey)
 
 			if processOK then
 				if self._destructor == nil and (needsDestruction(newOutKey) or needsDestruction(newMetaValue)) then
@@ -171,7 +164,6 @@ function class:update(): boolean
 			end
 		end
 
-
 		-- save dependency values and add to main dependency set
 		for dependency in pairs(keyData.dependencySet) do
 			keyData.dependencyValues[dependency] = dependency:get(false)
@@ -180,7 +172,6 @@ function class:update(): boolean
 			dependency.dependentSet[self] = true
 		end
 	end
-
 
 	-- STEP 2: find keys that were removed
 	for outputKey, inputKey in pairs(keyOIMap) do
@@ -214,7 +205,6 @@ local function ForKeys<KI, KO, M>(
 	processor: (KI) -> (KO, M?),
 	destructor: (KO, M?) -> ()?
 ): Types.ForKeys<KI, KO, M>
-
 	local inputIsState = inputTable.type == "State" and typeof(inputTable.get) == "function"
 
 	local self = setmetatable({

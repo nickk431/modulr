@@ -14,13 +14,13 @@ local Package = script.Parent.Parent
 local PubTypes = require(Package.PubTypes)
 local Types = require(Package.Types)
 local captureDependencies = require(Package.Dependencies.captureDependencies)
+local cleanup = require(Package.Utility.cleanup)
 local initDependency = require(Package.Dependencies.initDependency)
-local useDependency = require(Package.Dependencies.useDependency)
-local parseError = require(Package.Logging.parseError)
 local logErrorNonFatal = require(Package.Logging.logErrorNonFatal)
 local logWarn = require(Package.Logging.logWarn)
-local cleanup = require(Package.Utility.cleanup)
 local needsDestruction = require(Package.Utility.needsDestruction)
+local parseError = require(Package.Logging.parseError)
+local useDependency = require(Package.Dependencies.useDependency)
 
 local class = {}
 
@@ -82,7 +82,6 @@ function class:update(): boolean
 		self.dependencySet[self._inputTable] = true
 	end
 
-
 	-- STEP 1: find values that changed or were not previously present
 	for inKey, inValue in pairs(inputTable) do
 		-- check if the value is new or changed
@@ -129,11 +128,8 @@ function class:update(): boolean
 			valueData.oldDependencySet, valueData.dependencySet = valueData.dependencySet, valueData.oldDependencySet
 			table.clear(valueData.dependencySet)
 
-			local processOK, newOutValue, newMetaValue = captureDependencies(
-				valueData.dependencySet,
-				self._processor,
-				inValue
-			)
+			local processOK, newOutValue, newMetaValue =
+				captureDependencies(valueData.dependencySet, self._processor, inValue)
 
 			if processOK then
 				if self._destructor == nil and (needsDestruction(newOutValue) or needsDestruction(newMetaValue)) then
@@ -154,12 +150,12 @@ function class:update(): boolean
 				didChange = true
 			else
 				-- restore old dependencies, because the new dependencies may be corrupt
-				valueData.oldDependencySet, valueData.dependencySet = valueData.dependencySet, valueData.oldDependencySet
+				valueData.oldDependencySet, valueData.dependencySet =
+					valueData.dependencySet, valueData.oldDependencySet
 
 				logErrorNonFatal("forValuesProcessorError", newOutValue)
 			end
 		end
-
 
 		-- store the value and its dependency/meta data
 		local newCachedValues = newValueCache[inValue]
@@ -176,7 +172,6 @@ function class:update(): boolean
 
 		outputValues[inKey] = value
 
-
 		-- save dependency values and add to main dependency set
 		for dependency in pairs(valueData.dependencySet) do
 			valueData.dependencyValues[dependency] = dependency:get(false)
@@ -185,7 +180,6 @@ function class:update(): boolean
 			dependency.dependentSet[self] = true
 		end
 	end
-
 
 	-- STEP 2: find values that were removed
 	-- for tables of data, we just need to check if it's still in the cache
@@ -215,7 +209,6 @@ local function ForValues<VI, VO, M>(
 	processor: (VI) -> (VO, M?),
 	destructor: (VO, M?) -> ()?
 ): Types.ForValues<VI, VO, M>
-
 	local inputIsState = inputTable.type == "State" and typeof(inputTable.get) == "function"
 
 	local self = setmetatable({

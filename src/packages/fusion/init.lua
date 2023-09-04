@@ -22,8 +22,8 @@ export type Spring<T> = PubTypes.Spring<T>
 type Fusion = {
 	version: PubTypes.Version,
 
-	New: (className: string) -> ((propertyTable: PubTypes.PropertyTable) -> Instance),
-	Hydrate: (target: Instance) -> ((propertyTable: PubTypes.PropertyTable) -> Instance),
+	New: (className: string) -> (propertyTable: PubTypes.PropertyTable) -> Instance,
+	Hydrate: (target: Instance) -> (propertyTable: PubTypes.PropertyTable) -> Instance,
 	Ref: PubTypes.SpecialKey,
 	Cleanup: PubTypes.SpecialKey,
 	Children: PubTypes.SpecialKey,
@@ -33,20 +33,32 @@ type Fusion = {
 
 	Value: <T>(initialValue: T) -> Value<T>,
 	Computed: <T>(callback: () -> T, destructor: (T) -> ()?) -> Computed<T>,
-	ForPairs: <KI, VI, KO, VO, M>(inputTable: CanBeState<{[KI]: VI}>, processor: (KI, VI) -> (KO, VO, M?), destructor: (KO, VO, M?) -> ()?) -> ForPairs<KO, VO>,
-	ForKeys: <KI, KO, M>(inputTable: CanBeState<{[KI]: any}>, processor: (KI) -> (KO, M?), destructor: (KO, M?) -> ()?) -> ForKeys<KO, any>,
-	ForValues: <VI, VO, M>(inputTable: CanBeState<{[any]: VI}>, processor: (VI) -> (VO, M?), destructor: (VO, M?) -> ()?) -> ForValues<any, VO>,
+	ForPairs: <KI, VI, KO, VO, M>(
+		inputTable: CanBeState<{ [KI]: VI }>,
+		processor: (KI, VI) -> (KO, VO, M?),
+		destructor: (KO, VO, M?) -> ()?
+	) -> ForPairs<KO, VO>,
+	ForKeys: <KI, KO, M>(
+		inputTable: CanBeState<{ [KI]: any }>,
+		processor: (KI) -> (KO, M?),
+		destructor: (KO, M?) -> ()?
+	) -> ForKeys<KO, any>,
+	ForValues: <VI, VO, M>(
+		inputTable: CanBeState<{ [any]: VI }>,
+		processor: (VI) -> (VO, M?),
+		destructor: (VO, M?) -> ()?
+	) -> ForValues<any, VO>,
 	Observer: (watchedState: StateObject<any>) -> Observer,
 
 	Tween: <T>(goalState: StateObject<T>, tweenInfo: TweenInfo?) -> Tween<T>,
 	Spring: <T>(goalState: StateObject<T>, speed: number?, damping: number?) -> Spring<T>,
 
 	cleanup: (...any) -> (),
-	doNothing: (...any) -> ()
+	doNothing: (...any) -> (),
 }
 
 return restrictRead("Fusion", {
-	version = {major = 0, minor = 2, isRelease = true},
+	version = { major = 0, minor = 2, isRelease = true },
 
 	New = require(script.Instances.New),
 	Hydrate = require(script.Instances.Hydrate),
@@ -68,5 +80,5 @@ return restrictRead("Fusion", {
 	Spring = require(script.Animation.Spring),
 
 	cleanup = require(script.Utility.cleanup),
-	doNothing = require(script.Utility.doNothing)
+	doNothing = require(script.Utility.doNothing),
 }) :: Fusion

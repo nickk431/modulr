@@ -9,16 +9,16 @@ local Package = script.Parent.Parent
 local Types = require(Package.Types)
 local captureDependencies = require(Package.Dependencies.captureDependencies)
 local initDependency = require(Package.Dependencies.initDependency)
-local useDependency = require(Package.Dependencies.useDependency)
+local isSimilar = require(Package.Utility.isSimilar)
 local logErrorNonFatal = require(Package.Logging.logErrorNonFatal)
 local logWarn = require(Package.Logging.logWarn)
-local isSimilar = require(Package.Utility.isSimilar)
 local needsDestruction = require(Package.Utility.needsDestruction)
+local useDependency = require(Package.Dependencies.useDependency)
 
 local class = {}
 
-local CLASS_METATABLE = {__index = class}
-local WEAK_KEYS_METATABLE = {__mode = "k"}
+local CLASS_METATABLE = { __index = class }
+local WEAK_KEYS_METATABLE = { __mode = "k" }
 
 --[[
 	Returns the last cached value calculated by this Computed object.
