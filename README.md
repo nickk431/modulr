@@ -12,23 +12,23 @@
         <!-- PROJECT INFO START -->
         <!-- Repo stars -->
         <a href="https://github.com/nickk431/Modulr/stargazers">
-            <img src="https://img.shields.io/github/stars/nickk431/modulr?label=Stars&logo=GitHub" alt="Repo Stars" />
+            <img src="https://img.shields.io/github/stars/nickk431/Modulr?label=Stars&logo=GitHub" alt="Repo Stars" />
         </a>
         <!-- Repo forks -->
         <a href="https://github.com/nickk431/Modulr/forks">
-            <img src="https://img.shields.io/github/forks/nickk431/modulr?label=Fork&logo=GitHub" alt="Repo Forks" />
+            <img src="https://img.shields.io/github/forks/nickk431/Modulr?label=Fork&logo=GitHub" alt="Repo Forks" />
         </a>
         <!-- Latest release -->
         <a href="https://github.com/nickk431/Modulr/releases/latest">
-            <img src="https://img.shields.io/github/v/release/nickk431/modulr?label=Latest%20Release" alt="Latest Release" />
+            <img src="https://img.shields.io/github/v/release/nickk431/Modulr?label=Latest%20Release" alt="Latest Release" />
         </a>
         <!-- License info -->
         <a href="https://github.com/nickk431/Modulr/blob/main/LICENSE.txt">
-            <img src="https://img.shields.io/github/license/nickk431/modulr?label=License" alt="License" />
+            <img src="https://img.shields.io/github/license/nickk431/Modulr?label=License" alt="License" />
         </a>
         <!-- Last modified (latest commit) -->
         <a href="https://github.com/nickk431/Modulr/commits">
-            <img src="https://img.shields.io/github/last-commit/nickk431/modulr?label=Last%20Modifed" alt="Last Modified" />
+            <img src="https://img.shields.io/github/last-commit/nickk431/Modulr?label=Last%20Modifed" alt="Last Modified" />
         </a>
     </p>
 </div>
