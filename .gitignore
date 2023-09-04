@@ -1,4 +1,3 @@
-.VSCodeCounter
 node_modules
 dist
-.github
+sourcemap.json
