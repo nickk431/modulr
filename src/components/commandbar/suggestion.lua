@@ -46,7 +46,12 @@ local Computed = Fusion.Computed
 local New = Fusion.New
 
 -- < Component >
-return function(props)
+return function(props: {
+	name: string,
+	description: string,
+	top: boolean?,
+	types: { type: string, name: string }?,
+})
 	local Suggestion = New("Frame")({
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundColor3 = Theme.suggestion_top,
