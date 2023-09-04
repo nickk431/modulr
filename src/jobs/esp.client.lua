@@ -58,9 +58,9 @@ local function main()
 	end)
 
 	for _, player in Players:GetPlayers() do
-		-- if player == Players.LocalPlayer then
-		-- 	continue
-		-- end
+		if player == Players.LocalPlayer then
+			continue
+		end
 
 		addHighlight(player)
 
