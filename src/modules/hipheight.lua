@@ -1,5 +1,3 @@
-local Player = require(script.Parent.Parent.utils.player)
-
 return {
 	name = "hipheight",
 	description = "Changes your character's HipHeight",
@@ -10,7 +8,7 @@ return {
 		},
 	},
 
-	callback = function(_, arguments)
-		Player.getHumanoid().HipHeight = arguments.value
+	callback = function(_, utils, arguments)
+		utils.player.getHumanoid().HipHeight = arguments.value
 	end,
 }

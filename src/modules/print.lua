@@ -8,7 +8,7 @@ return {
 		},
 	},
 
-	callback = function(_, arguments)
+	callback = function(_, _, arguments)
 		print(arguments.input)
 	end,
 }

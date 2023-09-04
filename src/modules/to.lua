@@ -11,7 +11,7 @@ return {
 		},
 	},
 
-	callback = function(_, arguments)
+	callback = function(_, _, arguments)
 		local target = Player.getByName(arguments.player)
 
 		if not target then

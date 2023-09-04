@@ -2,6 +2,20 @@
 
 local Notification = require(script.Parent.Parent.components.notification.notification)
 
+local packages = {}
+for _, package in script.Parent:GetChildren() do
+	if package:IsA("ModuleScript") and package.Name ~= "cmdr" then
+		packages[package.Name] = require(package)
+	end
+end
+
+local utils = {}
+for _, util in script.Parent.Parent.utils:GetChildren() do
+	if util:IsA("ModuleScript") then
+		utils[util.Name] = require(util)
+	end
+end
+
 local ARGUMENT_TYPES = {
 	string = function(argument)
 		return argument
@@ -66,12 +80,11 @@ type Command = {
 do
 	Cmdr.__index = Cmdr
 
-	function Cmdr.new(props: { prefix: string?, customFunctions: { any }? })
+	function Cmdr.new(props: { prefix: string? })
 		local self = setmetatable({}, Cmdr)
 
 		self.prefix = props.prefix or ""
 		self.commands = {}
-		self.functions = props.customFunctions
 
 		return self
 	end
@@ -150,7 +163,7 @@ do
 			end
 		end
 
-		local success, err = pcall(commandProcess, self, processArguments)
+		local success, err = pcall(commandProcess, packages, utils, processArguments)
 		if not success then
 			error(err)
 		end

@@ -10,8 +10,6 @@ local Window = require(Components.window.window)
 local Packages = script.Parent.Parent.packages
 local Fusion = require(Packages.fusion)
 
-local Player = require(script.Parent.Parent.utils.player)
-
 local spectating = false
 
 -- < Functions >
@@ -50,7 +48,7 @@ return {
 	description = "View all the players in the game",
 	arguments = {},
 
-	callback = function()
+	callback = function(_, utils, _)
 		Window({
 			title = "Players",
 			size = UDim2.fromOffset(320, 394),
@@ -98,10 +96,10 @@ return {
 								text = "Teleport",
 								subtext = "Teleports your character to the target.",
 								callback = function()
-									local target = Player.getByName(value.Name)
+									local target = utils.player.getByName(value.Name)
 
 									if target then
-										Player.setPosition(target.Character:GetPivot())
+										utils.player.setPosition(target.Character:GetPivot())
 
 										return
 									end
@@ -112,7 +110,7 @@ return {
 								text = "Spectate",
 								subtext = "Spectates the target. They cannot see that you're spectating.",
 								callback = function()
-									local target = Player.getByName(value.Name)
+									local target = utils.player.getByName(value.Name)
 
 									spectating = not spectating
 
@@ -122,7 +120,7 @@ return {
 
 											return
 										else
-											workspace.CurrentCamera.CameraSubject = Player.getCharacter()
+											workspace.CurrentCamera.CameraSubject = utils.player.getCharacter()
 										end
 									end
 								end,

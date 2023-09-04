@@ -18,7 +18,7 @@ return {
 		},
 	},
 
-	callback = function(_, arguments)
+	callback = function(_, _, arguments)
 		Notification({
 			title = arguments.title,
 			description = arguments.desc,

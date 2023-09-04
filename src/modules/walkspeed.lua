@@ -1,5 +1,3 @@
-local Player = require(script.Parent.Parent.utils.player)
-
 return {
 	name = "walkspeed",
 	description = "Changes your character's WalkSpeed",
@@ -10,7 +8,7 @@ return {
 		},
 	},
 
-	callback = function(_, arguments)
-		Player.getHumanoid().WalkSpeed = arguments.value
+	callback = function(_, utils, arguments)
+		utils.player.getHumanoid().WalkSpeed = arguments.value
 	end,
 }

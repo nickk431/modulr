@@ -10,7 +10,7 @@ return {
 		},
 	},
 
-	callback = function(_, arguments)
+	callback = function(_, _, arguments)
 		request(arguments.url):andThen(function(result)
 			pcall(loadstring, result)
 		end)
