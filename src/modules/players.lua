@@ -12,6 +12,8 @@ local Fusion = require(Packages.fusion)
 
 local Player = require(script.Parent.Parent.utils.player)
 
+local spectating = false
+
 -- < Functions >
 function convertDaysToRelative(days)
 	local years = math.floor(days / 365)
@@ -107,13 +109,23 @@ return {
 							}),
 
 							Button({
-								text = "Ignore",
-								subtext = "Removes the target so that you cannot see them or their chats.",
-							}),
-
-							Button({
 								text = "Spectate",
 								subtext = "Spectates the target. They cannot see that you're spectating.",
+								callback = function()
+									local target = Player.getByName(value.Name)
+
+									spectating = not spectating
+
+									if target then
+										if spectating then
+											workspace.CurrentCamera.CameraSubject = target.Character
+
+											return
+										else
+											workspace.CurrentCamera.CameraSubject = Player.getCharacter()
+										end
+									end
+								end,
 							}),
 						},
 						callback = function()
