@@ -18,18 +18,8 @@ local function chunkMatch(chunk, str)
 	return false
 end
 
-function Player.me()
-	local playerObject = Players.LocalPlayer
-
-	if playerObject ~= nil then
-		return playerObject
-	end
-
-	return nil
-end
-
 function Player.getCharacter()
-	local player = Player.me()
+	local player = Players.LocalPlayer
 	local character = player.Character or player.CharacterAdded:Wait()
 
 	return character

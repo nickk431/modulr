@@ -31,6 +31,7 @@ type ButtonProps = {
 	initialValue: boolean?,
 	clickable: boolean?,
 	callback: ((...any) -> ...any)?,
+	secondary: boolean?,
 }
 
 -- < Component >
@@ -46,6 +47,20 @@ return function(props: ButtonProps)
 		Name = "Frame",
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundColor3 = animate(function()
+			if props.secondary then
+				local baseColor = colorUtils.darkenRGB(unwrap(Theme.button_background), 2)
+
+				if unwrap(isHovering) and not unwrap(isHeldDown) then
+					return colorUtils.lightenRGB(baseColor, 5)
+				end
+
+				if unwrap(isHeldDown) then
+					return colorUtils.lightenRGB(baseColor, 10)
+				end
+
+				return baseColor
+			end
+
 			if props.clickable then
 				if unwrap(isHovering) and not unwrap(isHeldDown) then
 					return colorUtils.lightenRGB(unwrap(Theme.button_background), 5)
@@ -144,9 +159,14 @@ return function(props: ButtonProps)
 
 					New("TextLabel")({
 						Name = "TextLabel",
-						FontFace = Font.new("rbxassetid://12187365364", Enum.FontWeight.Bold, Enum.FontStyle.Normal),
+						FontFace = Font.new(
+							"rbxassetid://12187365364",
+							props.secondary and Enum.FontWeight.SemiBold or Enum.FontWeight.Bold,
+							Enum.FontStyle.Normal
+						),
 						Text = props.text,
-						TextColor3 = Theme.button_text,
+						TextColor3 = props.secondary and colorUtils.darkenRGB(unwrap(Theme.button_text), 40)
+							or Theme.button_text,
 						TextSize = 15,
 						TextWrapped = true,
 						TextXAlignment = Enum.TextXAlignment.Left,

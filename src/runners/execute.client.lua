@@ -28,8 +28,13 @@ local function main()
 
 	local executeObserver = Fusion.Observer(States.ToExecute)
 	executeObserver:onChange(function()
-		print(States.ToExecute:get())
-		Handler:executeCommand(States.ToExecute:get())
+		local stringToExecute = States.ToExecute:get()
+
+		if stringToExecute == "" then
+			return
+		end
+
+		Handler:executeCommand(stringToExecute)
 	end)
 end
 

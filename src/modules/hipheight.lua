@@ -1,4 +1,4 @@
-local humanoidStore = require(script.Parent.Parent.stores.humanoid)
+local Player = require(script.Parent.Parent.utils.player)
 
 return {
 	name = "hipheight",
@@ -11,8 +11,6 @@ return {
 	},
 
 	callback = function(_, arguments)
-		humanoidStore:set({
-			JumpHeight = arguments.value,
-		})
+		Player.getHumanoid().HipHeight = arguments.value
 	end,
 }

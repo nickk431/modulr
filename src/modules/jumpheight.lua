@@ -1,8 +1,8 @@
-local humanoidStore = require(script.Parent.Parent.stores.humanoid)
+local Player = require(script.Parent.Parent.utils.player)
 
 return {
-	name = "jumpheight",
-	description = "Changes your character's JumpHeight",
+	name = "jumppower",
+	description = "Changes your character's JumpPower",
 	arguments = {
 		{
 			name = "value",
@@ -11,8 +11,6 @@ return {
 	},
 
 	callback = function(_, arguments)
-		humanoidStore:set({
-			JumpHeight = arguments.value,
-		})
+		Player.getHumanoid().JumpPower = arguments.value
 	end,
 }
