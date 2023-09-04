@@ -241,7 +241,7 @@ return function(props: ButtonProps)
 
 			task.wait(0.3)
 
-			currentSize:set(UDim2.fromOffset(255, 0))
+			currentSize:set(UDim2.fromOffset(255, -12))
 
 			task.wait(0.5)
 
