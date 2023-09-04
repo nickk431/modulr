@@ -23,7 +23,7 @@
             <img src="https://img.shields.io/github/v/release/nickk431/modulr?label=Latest%20Release" alt="Latest Release" />
         </a>
         <!-- License info -->
-        <a href="https://github.com/nickk431/modulr/blob/master/LICENSE.txt">
+        <a href="https://github.com/nickk431/modulr/blob/main/LICENSE.txt">
             <img src="https://img.shields.io/github/license/nickk431/modulr?label=License" alt="License" />
         </a>
         <!-- Last modified (latest commit) -->
@@ -34,28 +34,32 @@
 </div>
 
 # ⚡ Features
-* Sleek, unintrusive interface built with [Fusion](https://elttob.uk/Fusion/0.2/). Making it Easy to update and futureproof.
-* Easy to use scripting API which allows people to make scripts faster than ever.
-* Made using all of the latest [Luau](https://luau-lang.org/) functionality making it fast and reliable.
 
+- Sleek, unintrusive interface built with [Fusion](https://elttob.uk/Fusion/0.2/). Making it Easy to update and futureproof.
+- Easy to use scripting API which allows people to make scripts faster than ever.
+- Made using all of the latest [Luau](https://luau-lang.org/) functionality making it fast and reliable.
 
 # 📩 Usage
-Modulr is available to use through the **Releases** page or through the **loadstring** script when using a script executor. You may also build it yourself by using the instructions in the *Build* section below.
+
+Modulr is available to use through the **Releases** page or through the **loadstring** script when using a script executor. You may also build it yourself by using the instructions in the _Build_ section below.
 
 ## 🌐 Loadstring
+
 ```lua
 -- source at https://github.com/nickk431/modulr/
 loadstring(game:HttpGet("https://github.com/nickk431/modulr/releases/latest/download/main.lua"))()
 ```
 
-
 # 🔨 Build
+
 If you don't want to use the Github release or the loadstring, you can clone the plugin source from GitHub. You'll need to compile the plugin binary yourself using the bundler, and you'll also be responsible for keeping the plugin up to date.
 
 This might be a great option for you if you want to modify the source code, or if you're concerned about security. However, this method sacrifices convenience of installation and updates.
 
 # 📜 License
+
 Modulr is under the MIT license which can be found below.
+
 ```txt
 MIT License
 
