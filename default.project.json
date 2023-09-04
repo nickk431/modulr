@@ -1,0 +1,17 @@
+{
+	"name": "modulr",
+	"globIgnorePaths": [
+		"**/package.json",
+		"**/tsconfig.json"
+	],
+	"tree": {
+		"$className": "DataModel",
+		"ReplicatedFirst": {
+			"$className": "ReplicatedFirst",
+			"modulr-test": {
+				"$path": "src"
+				
+			}
+		}
+	}
+}
