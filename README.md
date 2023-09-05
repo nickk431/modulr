@@ -7,7 +7,7 @@
     <br>
     <!-- Title/Desc -->
     <h1>Modulr</h1>
-    <pThis is WIP so releases may not be in a working state</p>
+    <p>This is WIP so releases may not be in a working state</p>
     <p>
         <!-- PROJECT INFO START -->
         <!-- Repo stars -->
