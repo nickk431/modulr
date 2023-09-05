@@ -7,7 +7,7 @@
     <br>
     <!-- Title/Desc -->
     <h1>Modulr</h1>
-    <p>The best open-source utility script made for Roblox.</p>
+    <pThis is W.I.P so releases may not be in a working state.</p>
     <p>
         <!-- PROJECT INFO START -->
         <!-- Repo stars -->
