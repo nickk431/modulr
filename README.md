@@ -43,7 +43,7 @@
 
 Modulr is available to use through the **Releases** page or through the **loadstring** script when using a script executor. You may also build it yourself by using the instructions in the _Build_ section below.
 
-## 🌐 Loadstring
+## 🌐 Loadstring (NOT WORKING ⚠️)
 
 ```lua
 -- source at https://github.com/nickk431/modulr/
