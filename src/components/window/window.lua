@@ -175,7 +175,7 @@ return function(props: WindowProps, components)
 							end
 
 							return UDim2.new(0.2, 0, 1, -15)
-						end, 20, 0.6),
+						end, 30, 1.2),
 
 						[Children] = {
 							New("UICorner")({
