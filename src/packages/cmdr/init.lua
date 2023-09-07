@@ -4,16 +4,14 @@ local Notification = require(script.Parent.Parent.components.notification.notifi
 
 local packages = {}
 for _, package in script.Parent:GetChildren() do
-	if package:IsA("ModuleScript") and package.Name ~= "cmdr" then
+	if package.Name ~= "cmdr" then
 		packages[package.Name] = require(package)
 	end
 end
 
 local utils = {}
 for _, util in script.Parent.Parent.utils:GetChildren() do
-	if util:IsA("ModuleScript") then
-		utils[util.Name] = require(util)
-	end
+	utils[util.Name] = require(util)
 end
 
 local ARGUMENT_TYPES = {

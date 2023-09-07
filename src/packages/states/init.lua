@@ -19,6 +19,10 @@ local GlobalStates = {
 
 	-- < Notification states >
 	Notifications = Value({}),
+
+	-- < Other states >
+	FPSCheck = Value(true),
+	PingCheck = Value(true),
 }
 
 function GlobalStates.add(state: string, value: any, name: string)

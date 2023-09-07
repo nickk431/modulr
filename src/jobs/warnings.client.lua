@@ -4,6 +4,7 @@ local Stats = game:GetService("Stats")
 -- < Imports >
 local Constants = require(script.Parent.Parent.storage.constants)
 local Notification = require(script.Parent.Parent.components.notification.notification)
+local States = require(script.Parent.Parent.packages.states)
 
 -- < Variables >
 local Frames = Stats:WaitForChild("FrameRateManager"):WaitForChild("RenderAverage")
@@ -12,10 +13,10 @@ local Ping = Stats:WaitForChild("Network"):WaitForChild("ServerStatsItem"):WaitF
 -- < Handling >
 local function main()
 	while task.wait(5) do
-		local fps = math.round((1e3 / Frames:GetValue()) * 10) / 10
+		local fps = math.round((1_000 / Frames:GetValue()) * 10) / 10
 		local ping = math.round(Ping:GetValue() * 10) / 10
 
-		if ping > 150 then
+		if ping > 150 and States.PingCheck:get() then
 			Notification({
 				title = "Ping",
 				description = "We noticed your Ping is high.  You may experience latency issues.",
@@ -26,7 +27,7 @@ local function main()
 			return
 		end
 
-		if fps <= 30 then
+		if fps <= 30 and States.FPSCheck then
 			Notification({
 				title = "FPS",
 				description = "We noticed your FPS is low. Try freeing up some resources on your computer.",

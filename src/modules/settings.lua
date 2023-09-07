@@ -1,10 +1,11 @@
 local Components = script.Parent.Parent.components
 local Button = require(Components.window.button)
+local Constants = require(script.Parent.Parent.storage.constants)
 local Divider = require(Components.window.divider)
 local Section = require(Components.window.section)
-local Window = require(Components.window.window)
+local Switch = require(Components.window.switch)
 
-local Constants = require(script.Parent.Parent.storage.constants)
+local Window = require(Components.window.window)
 
 local Packages = script.Parent.Parent.packages
 local States = require(Packages.states)
@@ -61,6 +62,30 @@ return {
 						text = "Sirius Community",
 						subtext = "Thanks to all the members who gave feedback and helped out with decisions!",
 						clickable = false,
+					}),
+				},
+			}),
+
+			Section({
+				text = "Notifiers",
+				subtext = "Manage notification events",
+				newPage = {
+					Switch({
+						text = "FPS Drops",
+						subtext = "When your FPS drops below 25",
+						initialValue = States.FPSCheck,
+						callback = function(value)
+							States.FPSCheck:set(value)
+						end,
+					}),
+
+					Switch({
+						text = "Ping Spikes",
+						subtext = "When your ping spikes above 150",
+						initialValue = States.PingCheck,
+						callback = function(value)
+							States.PingCheck:set(value)
+						end,
 					}),
 				},
 			}),
